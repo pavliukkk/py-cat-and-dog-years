@@ -18,6 +18,9 @@ def get_human_age(cat_age: int, dog_age: int) -> list:
         get_human_age(15, 15) == [1, 1]
         get_human_age(24, 24) == [2, 2]
     """
+    if type(cat_age) is not int or type(dog_age) is not int:
+        raise TypeError
+    
     result = [0, 0]
     cat_age_checker = True
     dog_age_checker = True

@@ -3,9 +3,11 @@ from app.main import get_human_age
 
 
 @pytest.mark.parametrize(
-    "cat_years,dog_years,result",
+    "cat_age,dog_age,result",
     [
         pytest.param(0, 0, [0, 0]),
+        pytest.param(-2, -20, [0, 0]),
+        pytest.param(-1, 15, [0, 1]),
         pytest.param(14, 14, [0, 0]),
         pytest.param(14, 15, [0, 1]),
         pytest.param(15, 15, [1, 1]),
@@ -13,10 +15,26 @@ from app.main import get_human_age
         pytest.param(24, 24, [2, 2]),
         pytest.param(27, 27, [2, 2]),
         pytest.param(28, 28, [3, 2]),
-        pytest.param(100, 100, [21, 17])
+        pytest.param(100, 100, [21, 17]),
+        pytest.param(100, 1000, [21, 197])
     ]
 )
 def test_different_years_correctness(
-    cat_years: int, dog_years: int, result: list
+    cat_age: int, dog_age: int, result: list
 ) -> None:
-    assert get_human_age(cat_years, dog_years) == result
+    assert get_human_age(cat_age, dog_age) == result
+
+
+@pytest.mark.parametrize(
+    "cat_age,dog_age,result",
+    [
+        pytest.param("a", 100, TypeError),
+        pytest.param(15.5, 100, TypeError),
+        pytest.param(None, 100, TypeError)
+    ]
+)
+def test_errors_raise_correctness(
+    cat_age: int, dog_age: int, result: list
+) -> None:
+    with pytest.raises(result):
+        get_human_age(cat_age, dog_age)
