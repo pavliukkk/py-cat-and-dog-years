@@ -7,6 +7,7 @@ from app.main import get_human_age
     [
         pytest.param(0, 0, [0, 0]),
         pytest.param(14, 14, [0, 0]),
+        pytest.param(14, 15, [0, 1]),
         pytest.param(15, 15, [1, 1]),
         pytest.param(23, 23, [1, 1]),
         pytest.param(24, 24, [2, 2]),
